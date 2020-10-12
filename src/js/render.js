@@ -1,20 +1,38 @@
-import fetch from './fetch.js'
-import refs from './refs.js'
-import template from '../template/template.hbs'
+import fetch from "./fetch.js"
+import refs from "./refs.js"
+import template from "../template/template.hbs"
 import debounce from "lodash.debounce"
 
-refs.userInput.addEventListener("input", debounce((e) => {
-  fetch.searchQ = e.target.value
-  console.log(e.target.value);
+refs.input.addEventListener("input", debounce((e) => {
+  refs.list.innerHTML = "";
+  fetch.resetPage()
+  // console.log(e.target.value);
+  fetch.query = e.target.value;
   fetch.getFetch()
-  .then((data)=> render(data.hits))
-},1000))
+    .then(data => {
+      // console.log(data.hits)
+      insertItem(data.hits)
+      e.target.value = ""
+    })
+  loadMoreBtn.classList.remove("is-hiden")
+}, 1000))
 
-// fetch.getFetch()
-//   .then((data) => render  (data.hits))
+const loadMoreBtn = document.createElement("button");
+loadMoreBtn.textContent = "Load more..."
+loadMoreBtn.classList.add("load-btn", "is-hiden")
+refs.list.insertAdjacentElement("afterend",loadMoreBtn)
 
-function render(data) {
+loadMoreBtn.addEventListener("click", () => {
+  fetch.setPage()
+  fetch.getFetch()
+    .then(data => {
+      // console.log(data.hits)
+      insertItem(data.hits)
+      window.scrollTo(0,10000)
+    })
+})
+
+function insertItem(data) {
   const item = template(data)
-  refs.galleryList.insertAdjacentHTML("beforeend", item)
-
-  }
+  refs.list.insertAdjacentHTML("beforeend", item)
+}

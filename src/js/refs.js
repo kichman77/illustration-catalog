@@ -1,5 +1,5 @@
 export default {
-  galleryList: document.querySelector(".gallery-list"),
-  userForm: document.querySelector(".gallery-form"),
-  userInput: document.querySelector(".gallery-input")
+  input: document.querySelector(".gallery-input"),
+  list: document.querySelector(".gallery-list"),
+
 }
