@@ -1,0 +1,26 @@
+body {
+  background-color: black;
+  color: wheat;
+}
+.gallery-list {
+  display: flex;
+  flex-flow: row wrap;
+  justify-content: space-around;
+  list-style: none;
+}
+.gallery-list li:not(:nth-child(even)){
+  margin-right: 20px;
+}
+
+.gallery-list li{
+  width: calc((100% - 20px)/2);
+}
+video {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+.list{
+  display: flex;
+  justify-content: space-around;
+}

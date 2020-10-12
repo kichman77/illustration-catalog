@@ -1,1 +1,1 @@
-# illustration-catalog
+# initial-repository
